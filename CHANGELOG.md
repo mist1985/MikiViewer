@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.6.0
+
+- Protect Privacy finds much more: names and usernames, dates (such as birth and visit dates), SSN, passport, driver's licence and tax ID numbers, card expiry dates and CVV codes, bank, routing, SWIFT and loan numbers, medical record and patient, member and policy numbers, IP and MAC addresses, web links and file paths, and passwords, PINs, API keys, tokens and private keys. A value after a label ("Passport No: X1234567") is hidden while the label stays readable.
+- Protect Privacy finds every face in group photos and collages; small faces in a large image used to be missed.
+- Card numbers are found when their groups are printed far apart, as on a real card.
+
 ## 1.5.1
 
 - Hide anything by hand: select an area, or some recognized text, then right-click and choose Blur, Pixelate or Black Out. The options are at the top of the menu.
