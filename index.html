@@ -40,11 +40,6 @@
   .notes { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 6px 22px; }
   .notes ul { padding-left: 20px; }
   .notes li { margin: 8px 0; }
-  #history details { border-top: 1px solid var(--line); padding: 10px 0; }
-  #history details:last-child { border-bottom: 1px solid var(--line); }
-  #history summary { cursor: pointer; font-weight: 600; }
-  #history ul { padding-left: 20px; margin: 8px 0 4px; }
-  #history li { margin: 6px 0; }
   ol li { margin: 8px 0; }
   code, kbd { font: 14px ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--line); padding: 1px 5px; border-radius: 5px; }
   a { color: var(--accent-2); }
@@ -86,11 +81,6 @@
     <div class="notes" id="notes"><p>See the <a href="https://github.com/mist1985/MikiViewer/releases/latest">latest release notes</a> on GitHub.</p></div>
   </section>
 
-  <section id="history" hidden>
-    <h2>Version history</h2>
-    <div id="history-list"></div>
-  </section>
-
   <section>
     <h2>Installing</h2>
     <ol>
@@ -102,7 +92,6 @@
 
   <footer>
     © 2026 Mihajlo Stojanovski. All rights reserved.<br>
-    <a href="#history">Version history</a> ·
     <a href="https://github.com/mist1985/MikiViewer/blob/main/LICENSE">License</a> ·
     <a href="https://github.com/mist1985/MikiViewer/blob/main/ThirdPartyNotices.txt">Third-party notices</a><br>
     Text recognition by Apple Vision and <a href="https://github.com/tesseract-ocr/tesseract">Tesseract</a>.
@@ -136,24 +125,6 @@
       if (rel.body) {
         document.getElementById("notes-title").textContent = `What’s new in ${version}`;
         document.getElementById("notes").innerHTML = renderNotes(rel.body);
-      }
-    })
-    .catch(() => {});
-
-  // Every version's notes, from the changelog published next to this page.
-  fetch("CHANGELOG.md")
-    .then(r => r.ok ? r.text() : Promise.reject(r.status))
-    .then(md => {
-      const list = document.getElementById("history-list");
-      for (const part of md.split(/^## /m).slice(1)) {
-        const [version, ...rest] = part.split("\n");
-        const d = document.createElement("details");
-        d.innerHTML = `<summary>${esc(version.trim())}</summary>` + renderNotes(rest.join("\n"));
-        list.appendChild(d);
-      }
-      if (list.firstChild) {
-        list.firstChild.open = true;
-        document.getElementById("history").hidden = false;
       }
     })
     .catch(() => {});
