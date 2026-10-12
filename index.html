@@ -56,8 +56,8 @@
     <p class="release" id="release">Latest release</p>
     <div class="buttons">
       <!-- These links always point at the newest release, even without JavaScript. -->
-      <a class="btn primary" id="pkg" href="https://github.com/mist1985/MikiViewer-releases/releases/latest/download/MikiViewer.pkg">Download installer <small>.pkg</small></a>
-      <a class="btn" id="dmg" href="https://github.com/mist1985/MikiViewer-releases/releases/latest/download/MikiViewer.dmg">Disk image <small>.dmg</small></a>
+      <a class="btn primary" id="pkg" href="https://github.com/mist1985/MikiViewer/releases/latest/download/MikiViewer.pkg">Download installer <small>.pkg</small></a>
+      <a class="btn" id="dmg" href="https://github.com/mist1985/MikiViewer/releases/latest/download/MikiViewer.dmg">Disk image <small>.dmg</small></a>
     </div>
     <p class="req">macOS 26 or later · Apple silicon · Free to use</p>
   </div>
@@ -76,7 +76,7 @@
 
   <section>
     <h2 id="notes-title">What’s new</h2>
-    <div class="notes" id="notes"><p>See the <a href="https://github.com/mist1985/MikiViewer-releases/releases/latest">latest release notes</a> on GitHub.</p></div>
+    <div class="notes" id="notes"><p>See the <a href="https://github.com/mist1985/MikiViewer/releases/latest">latest release notes</a> on GitHub.</p></div>
   </section>
 
   <section>
@@ -90,9 +90,9 @@
 
   <footer>
     © 2026 Mihajlo Stojanovski. All rights reserved.<br>
-    <a href="https://github.com/mist1985/MikiViewer-releases/releases">All releases</a> ·
-    <a href="https://github.com/mist1985/MikiViewer-releases/blob/main/LICENSE">License</a> ·
-    <a href="https://github.com/mist1985/MikiViewer-releases/blob/main/ThirdPartyNotices.txt">Third-party notices</a><br>
+    <a href="https://github.com/mist1985/MikiViewer/releases">All releases</a> ·
+    <a href="https://github.com/mist1985/MikiViewer/blob/main/LICENSE">License</a> ·
+    <a href="https://github.com/mist1985/MikiViewer/blob/main/ThirdPartyNotices.txt">Third-party notices</a><br>
     Text recognition by Apple Vision and <a href="https://github.com/tesseract-ocr/tesseract">Tesseract</a>.
   </footer>
 </main>
@@ -110,7 +110,7 @@
     }
     return html + (inList ? "</ul>" : "");
   }
-  fetch("https://api.github.com/repos/mist1985/MikiViewer-releases/releases/latest")
+  fetch("https://api.github.com/repos/mist1985/MikiViewer/releases/latest")
     .then(r => r.ok ? r.json() : Promise.reject(r.status))
     .then(rel => {
       const version = rel.tag_name.replace(/^v/, "");

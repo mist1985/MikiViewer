@@ -4,7 +4,7 @@
 
 <p align="center">A fast image viewer and editor for macOS that can also read the text in your images, in English, Macedonian and about 120 other languages.</p>
 
-<p align="center"><a href="https://mist1985.github.io/MikiViewer-releases/"><b>Download the latest version</b></a></p>
+<p align="center"><a href="https://mist1985.github.io/MikiViewer/"><b>Download the latest version</b></a></p>
 
 This repository hosts MikiViewer's download page and releases. MikiViewer is proprietary software; its source code is not public.
 
@@ -19,7 +19,7 @@ This repository hosts MikiViewer's download page and releases. MikiViewer is pro
 
 ## Install
 
-1. Download **MikiViewer.pkg** from the [download page](https://mist1985.github.io/MikiViewer-releases/) or the [latest release](https://github.com/mist1985/MikiViewer-releases/releases/latest).
+1. Download **MikiViewer.pkg** from the [download page](https://mist1985.github.io/MikiViewer/) or the [latest release](https://github.com/mist1985/MikiViewer/releases/latest).
 2. Open it and follow the installer. Any previous version is removed first; your downloaded OCR languages and settings are kept.
 
 Prefer drag-and-drop? Download **MikiViewer.dmg** and drag MikiViewer onto Applications (choose *Replace* when asked).
