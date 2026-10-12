@@ -78,7 +78,7 @@
   .lede b { color: var(--ink); font-weight: 550; }
   .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
   .meta { margin-top: 16px; font: 13px/1.5 "Geist Mono", monospace; color: var(--muted); }
-  .spot { position: relative; aspect-ratio: 1.04; width: min(100%, 360px); justify-self: center; }   /* where the mascot perches first */
+  .spot { position: relative; aspect-ratio: 1; width: min(100%, 340px); justify-self: center; }   /* where Miki sits first */
 
   .stage-wrap { perspective: 1800px; margin-top: clamp(40px, 6vw, 80px); }
   .stage { background: var(--stage); border-radius: clamp(14px, 2vw, 26px); padding: clamp(8px, 1.4vw, 18px); transform-origin: 50% 0;
@@ -173,19 +173,19 @@
   footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 28px; }
   footer .end { margin-left: auto; display: flex; gap: 18px; }
 
-  /* ---------- Miki, the mascot ---------- */
-  #miki { position: fixed; left: 0; top: 0; z-index: 25; width: 300px; transform-origin: 0 0; pointer-events: none; visibility: hidden; }
-  #miki svg { width: 100%; height: auto; overflow: visible; display: block; }
-  #miki .hit { pointer-events: auto; cursor: pointer; }
-  #miki .bird, #miki .head, #miki .wing, #miki .tail, #miki .body { transform-box: view-box; }
-  #miki .head { transform-origin: 160px 118px; transition: transform .5s var(--spring); }
-  #miki .wing { transform-origin: 148px 118px; }
-  #miki .tail { transform-origin: 116px 182px; }
-  #miki .lid { transform-box: fill-box; transform-origin: 50% 0; transform: scaleY(0); }
-  #miki .pupil { transition: transform .2s var(--ease); }
-  #miki .breathe { transform-box: view-box; transform-origin: 150px 210px; animation: breathe 3.2s ease-in-out infinite; }
-  @keyframes breathe { 50% { transform: scale(1.012, .992); } }
-  .bubble { position: absolute; right: 62%; bottom: 84%; padding: 10px 14px; border-radius: 16px 16px 4px 16px; background: var(--ink); color: var(--bg);
+  /* ---------- Miki: the app icon itself, with a living eye ---------- */
+  #miki { position: fixed; left: 0; top: 0; z-index: 25; transform-origin: 0 0; visibility: hidden; }
+  #miki .icon { position: relative; width: 100%; aspect-ratio: 1; cursor: pointer; transform-origin: 50% 60%;
+                filter: drop-shadow(0 24px 34px rgba(60,50,10,.22)); }
+  #miki .icon img { width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
+  /* Covers the drawn pupil with head colour, then draws one that can look around and wink. Eye centre: 66.0% / 25.2%. */
+  #miki .eye { position: absolute; left: 66%; top: 25.2%; width: 11.6%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; overflow: hidden;
+               background: radial-gradient(circle, #fee93e 64%, rgba(254,233,62,0) 71%); }
+  #miki .pupil { position: absolute; inset: 10.5%; border-radius: 50%; background: #0c1b2e; transition: transform .2s var(--ease); }
+  #miki .pupil::after { content: ""; position: absolute; width: 26%; height: 26%; left: 22%; top: 18%; border-radius: 50%; background: #fdfdfd; }
+  #miki .lid { position: absolute; inset: 0; border-radius: 50%; background: linear-gradient(#ffe94a, #fee23a); transform: scaleY(0); transform-origin: 50% 0; }
+  #miki .lid::after { content: ""; position: absolute; left: 12%; right: 12%; bottom: 0; height: 9%; border-radius: 50%; background: #c9a516; }  /* lash line */
+  .bubble { position: absolute; z-index: 2; right: 88%; bottom: 78%; padding: 10px 14px; border-radius: 16px 16px 4px 16px; background: var(--ink); color: var(--bg);
             font: 600 14px/1.3 Geist, sans-serif; white-space: nowrap; transform-origin: 100% 100%; scale: 0; opacity: 0;
             transition: scale .45s var(--spring), opacity .25s; pointer-events: none; }
   .bubble.show { scale: var(--bs, 1); opacity: 1; }
@@ -193,7 +193,7 @@
   @media (max-width: 860px) {
     .links { display: none; } nav .btn { margin-left: auto; }
     .hero, .split, .extras, .install, .local .cols, .grid { grid-template-columns: 1fr; }
-    .spot { width: 220px; justify-self: end; margin-top: -10px; }
+    .spot { width: 180px; justify-self: end; margin-top: -10px; }
     .vbar .vinfo { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -359,43 +359,10 @@
   </div>
 </footer>
 
-<!-- Miki: drawn in the icon's flat, layered style so the head, wing, tail and eye can move on their own. -->
+<!-- Miki is the app icon: it zooms in, winks, then keeps you company from the corner. -->
 <div id="miki" aria-hidden="true">
   <div class="bubble" id="bubble">Hi! I’m Miki.</div>
-  <svg viewBox="0 0 260 250">
-    <g class="perch">
-      <path d="M6 222 C70 212 150 216 254 206" stroke="#7b5233" stroke-width="13" stroke-linecap="round" fill="none"/>
-      <path d="M6 219 C70 209 150 213 254 203" stroke="#a5754c" stroke-width="4" stroke-linecap="round" fill="none" opacity=".7"/>
-      <path d="M214 209 C224 196 236 192 248 194" stroke="#7b5233" stroke-width="6" stroke-linecap="round" fill="none"/>
-      <path d="M236 194 C244 180 258 178 262 186 C254 196 244 198 236 194Z" fill="#3cb55e"/><path d="M226 200 C228 186 240 180 246 186 C242 198 234 202 226 200Z" fill="#2a9a4b"/>
-    </g>
-    <g class="bird"><g class="breathe">
-      <g class="tail"><path d="M118 176 L66 244 L82 246 L132 188Z" fill="#1c4fa0"/><path d="M124 182 L80 246 L90 246 L136 192Z" fill="#13a3a6"/></g>
-      <g class="body">
-        <path d="M168 94 C200 112 204 170 178 198 C158 220 120 216 106 192 C92 168 104 114 168 94Z" fill="#86c93a"/>
-        <path d="M180 122 C196 142 194 178 176 198 C164 210 148 212 138 206 C162 198 184 172 180 122Z" fill="#a6da45"/>
-        <path d="M106 192 C120 216 158 220 178 198 C162 208 132 210 114 198Z" fill="#2a9a4b"/>
-        <path d="M152 206 q-3 8 -10 11 M152 206 q2 8 0 12 M168 204 q-1 8 -8 12 M168 204 q4 8 5 12" stroke="#c98c86" stroke-width="4" stroke-linecap="round" fill="none"/>
-      </g>
-      <g class="wing">
-        <path d="M152 112 C128 118 110 142 104 174 C100 194 106 208 112 212 C128 198 148 172 156 142 C160 126 158 116 152 112Z" fill="#1c4fa0"/>
-        <path d="M148 122 C132 132 120 154 116 180 C124 168 140 148 150 130Z" fill="#13a3a6"/>
-        <path d="M142 142 C130 154 122 172 120 192 C128 178 138 162 144 150Z" fill="#3ec5c8"/>
-      </g>
-      <g class="head">
-        <circle cx="170" cy="84" r="41" fill="#ffe03a"/>
-        <path d="M134 72 C140 48 172 36 196 52 C174 46 152 52 134 72Z" fill="#ffec7a"/>
-        <ellipse cx="205" cy="78" rx="9.5" ry="7" fill="#2e8bd6"/>
-        <path d="M202 82 C216 82 225 94 219 108 C215 114 208 114 206 110 C210 102 208 94 200 92Z" fill="#f7931e"/>
-        <path d="M200 92 C206 96 208 104 206 110 C200 106 198 98 200 92Z" fill="#e2541b"/>
-        <ellipse cx="186" cy="108" rx="8.5" ry="5.5" fill="#1c4fa0" transform="rotate(-20 186 108)"/>
-        <circle cx="178" cy="120" r="3" fill="#13213a"/><circle cx="190" cy="122" r="2.5" fill="#13213a"/>
-        <g class="pupil"><circle cx="184" cy="73" r="8.5" fill="#0c1b2e"/><circle cx="181.5" cy="70" r="2.5" fill="#fff"/></g>
-        <ellipse class="lid" cx="184" cy="63" rx="11" ry="21" fill="#ffe03a"/>
-      </g>
-      <circle class="hit" cx="160" cy="130" r="70" fill="transparent"/>
-    </g></g>
-  </svg>
+  <div class="icon" id="mikiIcon"><img src="media/logo-1024.webp" alt="" draggable="false"><span class="eye"><span class="pupil"></span><span class="lid"></span></span></div>
 </div>
 
 <script>
@@ -420,76 +387,58 @@ function movePill(a) {
 }
 
 /* ---------- Miki ---------- */
-const miki = $("#miki"), bird = miki.querySelector(".bird"), head = miki.querySelector(".head"), wing = miki.querySelector(".wing"),
-      tail = miki.querySelector(".tail"), lid = miki.querySelector(".lid"), pupil = miki.querySelector(".pupil"), bubble = $("#bubble"), spot = $("#spot");
+const miki = $("#miki"), icon = $("#mikiIcon"), lid = miki.querySelector(".lid"), pupil = miki.querySelector(".pupil"), bubble = $("#bubble"), spot = $("#spot");
 let landed = false, bubbleTimer;
 function say(text, ms = 2600) {
   bubble.textContent = text; bubble.classList.add("show");
   clearTimeout(bubbleTimer); bubbleTimer = setTimeout(() => bubble.classList.remove("show"), ms);
 }
-function blink() { lid.animate([{ transform: "scaleY(0)" }, { transform: "scaleY(1)" }, { transform: "scaleY(0)" }], { duration: 220, easing: "ease-in-out" }); }
-function tilt(deg = -12, ms = 900) { head.style.transform = `rotate(${deg}deg)`; setTimeout(() => head.style.transform = "", ms); }
-function flap(times = 6, speed = 130) {
-  return wing.animate([{ transform: "rotate(0deg)" }, { transform: "rotate(-48deg) scaleY(1.05)" }, { transform: "rotate(10deg)" }, { transform: "rotate(0deg)" }],
-                      { duration: speed * 2, iterations: times, easing: "ease-in-out" });
+function blink() { lid.animate([{ transform: "scaleY(0)" }, { transform: "scaleY(1)" }, { transform: "scaleY(0)" }], { duration: 200, easing: "ease-in-out" }); }
+// A wink: the lid stays shut a beat longer while the head tips towards you.
+function wink() {
+  lid.animate([{ transform: "scaleY(0)" }, { transform: "scaleY(1)", offset: .25 }, { transform: "scaleY(1)", offset: .7 }, { transform: "scaleY(0)" }],
+              { duration: 620, easing: "ease-in-out" });
+  icon.animate([{ transform: "none" }, { transform: "rotate(-7deg) scale(1.03)", offset: .35 }, { transform: "rotate(-7deg) scale(1.03)", offset: .7 }, { transform: "none" }],
+               { duration: 900, easing: "cubic-bezier(.34,1.56,.64,1)" });
 }
-function hop() {
-  flap(3, 110);
-  bird.animate([{ transform: "translateY(0)" }, { transform: "translateY(-26px)" }, { transform: "translateY(0) scale(1.04, .94)" }, { transform: "none" }],
-               { duration: 650, easing: "cubic-bezier(.3,.7,.4,1)", transformOrigin: "150px 220px" });
-}
-// Where Miki sits: on the hero perch at first, then a small perch in the corner while you read.
+function nod() { icon.animate([{ transform: "none" }, { transform: "rotate(5deg)" }, { transform: "none" }], { duration: 700, easing: "cubic-bezier(.34,1.56,.64,1)" }); }
+// Where Miki sits: beside the headline first, then small in the corner while you read.
 function place() {
   const r = spot.getBoundingClientRect(), small = innerWidth < 860;
-  const p = reduce ? clamp(scrollY / 400) : clamp(scrollY / (innerHeight * .55));
-  const w0 = r.width, w1 = small ? 96 : 132;
-  const x1 = innerWidth - w1 - (small ? 8 : 22), y1 = innerHeight - w1 * .96 - (small ? 6 : 14);
-  const e = p * p * (3 - 2 * p);
-  const s = lerp(1, w1 / w0, e), x = lerp(r.left, x1, e), y = lerp(r.top, y1, e);
+  const p = clamp(scrollY / (innerHeight * .55)), e = p * p * (3 - 2 * p);
+  const w0 = r.width, w1 = small ? 64 : 84;
+  const x1 = innerWidth - w1 - (small ? 12 : 26), y1 = innerHeight - w1 - (small ? 12 : 26);
+  const s = lerp(1, w1 / w0, e);
   miki.style.width = w0 + "px";
-  miki.style.transform = `translate(${x}px, ${y}px) scale(${s})`;
+  miki.style.transform = `translate(${lerp(r.left, x1, e)}px, ${lerp(r.top, y1, e)}px) scale(${s})`;
   bubble.style.setProperty("--bs", (1 / s) * (small ? .8 : 1));
 }
 function welcome() {
   miki.style.visibility = "visible"; place();
   if (reduce) { landed = true; say("Hi! I’m Miki.", 3200); return; }
-  tail.animate([{ transform: "rotate(-14deg)" }, { transform: "rotate(6deg)" }], { duration: 300, iterations: 6, direction: "alternate" });
-  const wings = flap(9, 120);
-  const fly = bird.animate([
-    { transform: "translate(520px, -420px) rotate(-18deg) scale(.7)", offset: 0 },
-    { transform: "translate(240px, -170px) rotate(-10deg) scale(.85)", offset: .45 },
-    { transform: "translate(40px, -40px) rotate(-4deg) scale(.98)", offset: .8 },
-    { transform: "translate(0, 0) rotate(0) scale(1)", offset: 1 }
-  ], { duration: 1500, easing: "cubic-bezier(.25,.6,.3,1)", delay: 500, fill: "backwards" });
-  fly.onfinish = () => {
-    wings.cancel();
-    bird.animate([{ transform: "scale(1.04, .92)" }, { transform: "scale(.98, 1.03)" }, { transform: "none" }], { duration: 420, easing: "ease-out" });
-    setTimeout(() => { tilt(-14, 1100); blink(); }, 380);
-    setTimeout(() => { say("Hi! I’m Miki. Scroll, I’ll stay right here.", 3600); landed = true; }, 700);
-    setTimeout(blink, 2100);
-  };
+  icon.animate([{ transform: "scale(.2)", opacity: 0 }, { transform: "scale(1.06)", opacity: 1, offset: .6 }, { transform: "scale(.98)", offset: .8 }, { transform: "none", opacity: 1 }],
+               { duration: 900, easing: "cubic-bezier(.2,.8,.2,1)", delay: 250, fill: "backwards" })
+    .onfinish = () => {
+      setTimeout(wink, 250);
+      setTimeout(() => { say("Hi! I’m Miki. Have a look around.", 3400); landed = true; }, 650);
+    };
 }
 // The eye follows the pointer.
 addEventListener("pointermove", e => {
-  const r = miki.getBoundingClientRect();
-  const ex = r.left + r.width * .708, ey = r.top + r.height * .29;
-  const a = Math.atan2(e.clientY - ey, e.clientX - ex), d = clamp(Math.hypot(e.clientX - ex, e.clientY - ey) / 260);
-  pupil.style.transform = `translate(${Math.cos(a) * d * 2.6}px, ${Math.sin(a) * d * 2.6}px)`;
+  const r = icon.getBoundingClientRect();
+  const ex = r.left + r.width * .66, ey = r.top + r.height * .252;
+  const a = Math.atan2(e.clientY - ey, e.clientX - ex), d = clamp(Math.hypot(e.clientX - ex, e.clientY - ey) / 300);
+  pupil.style.transform = `translate(${Math.cos(a) * d * 14}%, ${Math.sin(a) * d * 14}%)`;
 }, { passive: true });
-if (!reduce) (function idle() {
-  setTimeout(() => { if (landed) { blink(); if (Math.random() < .3) tilt(Math.random() < .5 ? -10 : 8, 800); } idle(); }, 2400 + Math.random() * 3000);
-})();
-miki.querySelector(".hit").addEventListener("click", () => {
-  hop(); blink();
-  say(["Tweet!", "Hello again!", "That tickles!", "Have you tried the viewer?"][Math.floor(Math.random() * 4)], 1800);
-});
+if (!reduce) (function idle() { setTimeout(() => { if (landed) blink(); idle(); }, 2800 + Math.random() * 3200); })();
+icon.addEventListener("click", () => { wink(); say(["Hello again!", "Hi there!", "Have you tried the viewer?"][Math.floor(Math.random() * 3)], 1800); });
 // Each section gets one hello as it arrives.
 const greeted = new Set();
 const sections = new IntersectionObserver(es => es.forEach(e => {
   if (!e.isIntersecting) return;
   const id = e.target.id;
   movePill(navLinks.find(a => a.getAttribute("href") === "#" + id));
-  if (landed && !greeted.has(id)) { greeted.add(id); tilt(-12); blink(); if (id === "download") hop(); say(e.target.dataset.say); }
+  if (landed && !greeted.has(id)) { greeted.add(id); id === "download" ? wink() : (nod(), blink()); say(e.target.dataset.say); }
 }), { rootMargin: "-45% 0px -50% 0px" });
 $$("section[id]").forEach(s => sections.observe(s));
 
