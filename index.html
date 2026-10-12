@@ -40,6 +40,11 @@
   .notes { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 6px 22px; }
   .notes ul { padding-left: 20px; }
   .notes li { margin: 8px 0; }
+  #history details { border-top: 1px solid var(--line); padding: 10px 0; }
+  #history details:last-child { border-bottom: 1px solid var(--line); }
+  #history summary { cursor: pointer; font-weight: 600; }
+  #history ul { padding-left: 20px; margin: 8px 0 4px; }
+  #history li { margin: 6px 0; }
   ol li { margin: 8px 0; }
   code, kbd { font: 14px ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--line); padding: 1px 5px; border-radius: 5px; }
   a { color: var(--accent-2); }
@@ -67,7 +72,8 @@
     <div class="grid">
       <div class="card"><h3>Select text on the image</h3><p>Text is recognized as soon as an image opens. Drag across it, double-click a word or triple-click a line, then press <kbd>⌘C</kbd>.</p></div>
       <div class="card"><h3>English &amp; Macedonian built in</h3><p>Including Ѓ, Ќ, Љ and Ѕ, and lines that mix both languages. Download more from Tools ▸ OCR Languages.</p></div>
-      <div class="card"><h3>Protect Privacy</h3><p>One click finds faces, emails, phone numbers, card numbers, IBANs and ЕМБГ numbers and hides them, and strips location data from the file. Right-click anything to blur or black it out by hand, or to show one area again.</p></div>
+      <div class="card"><h3>Protect Privacy</h3><p>One click finds faces, emails, phone numbers, card numbers, IBANs and ЕМБГ numbers and hides them, and strips location data from the file.</p></div>
+      <div class="card"><h3>Hide anything, show it again</h3><p>Select an area or some text, right-click and choose Blur, Pixelate or Black Out. Changed your mind about one face? Right-click it and choose Show Again; the rest stay hidden.</p></div>
       <div class="card"><h3>Extract Text</h3><p>Pull all the text from an image, or just a selected area, into a panel you can edit, copy or save.</p></div>
       <div class="card"><h3>Mark up</h3><p>Shapes, arrows, text, sketches and signatures, all editable until you save.</p></div>
       <div class="card"><h3>Edit</h3><p>Crop, rotate, resize, color adjustments, auto levels and one-click background removal.</p></div>
@@ -78,6 +84,11 @@
   <section>
     <h2 id="notes-title">What’s new</h2>
     <div class="notes" id="notes"><p>See the <a href="https://github.com/mist1985/MikiViewer/releases/latest">latest release notes</a> on GitHub.</p></div>
+  </section>
+
+  <section id="history" hidden>
+    <h2>Version history</h2>
+    <div id="history-list"></div>
   </section>
 
   <section>
@@ -91,7 +102,7 @@
 
   <footer>
     © 2026 Mihajlo Stojanovski. All rights reserved.<br>
-    <a href="https://github.com/mist1985/MikiViewer/releases">All releases</a> ·
+    <a href="#history">Version history</a> ·
     <a href="https://github.com/mist1985/MikiViewer/blob/main/LICENSE">License</a> ·
     <a href="https://github.com/mist1985/MikiViewer/blob/main/ThirdPartyNotices.txt">Third-party notices</a><br>
     Text recognition by Apple Vision and <a href="https://github.com/tesseract-ocr/tesseract">Tesseract</a>.
@@ -100,7 +111,8 @@
 <script>
   // Fill in the newest version, its date and its notes from GitHub; the buttons work without this.
   const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  const inline = s => esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/`(.+?)`/g, "<code>$1</code>");
+  const inline = s => esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/`(.+?)`/g, "<code>$1</code>")
+    .replace(/\[([^\]]+)\]\((https:\/\/[^)\s]+)\)/g, '<a href="$2">$1</a>');
   function renderNotes(md) {
     let html = "", inList = false;
     for (const line of md.split("\n")) {
@@ -124,6 +136,24 @@
       if (rel.body) {
         document.getElementById("notes-title").textContent = `What’s new in ${version}`;
         document.getElementById("notes").innerHTML = renderNotes(rel.body);
+      }
+    })
+    .catch(() => {});
+
+  // Every version's notes, from the changelog published next to this page.
+  fetch("CHANGELOG.md")
+    .then(r => r.ok ? r.text() : Promise.reject(r.status))
+    .then(md => {
+      const list = document.getElementById("history-list");
+      for (const part of md.split(/^## /m).slice(1)) {
+        const [version, ...rest] = part.split("\n");
+        const d = document.createElement("details");
+        d.innerHTML = `<summary>${esc(version.trim())}</summary>` + renderNotes(rest.join("\n"));
+        list.appendChild(d);
+      }
+      if (list.firstChild) {
+        list.firstChild.open = true;
+        document.getElementById("history").hidden = false;
       }
     })
     .catch(() => {});
