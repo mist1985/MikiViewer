@@ -16,7 +16,7 @@ This repository hosts MikiViewer's download page and releases. MikiViewer is pro
 - **Select text on the image**: text is recognized as soon as an image opens. Drag across it to select exactly what you want, double-click for a word, triple-click for a line, then press ⌘C.
 - **Extract Text** (⇧⌘T): recognizes the whole image, or just the area you selected, into an editable panel you can copy or save.
 - **OCR languages**: English and Macedonian are built in, including Ѓ, Ќ, Љ and Ѕ. Download others from Tools ▸ OCR Languages….
-- **Protect Privacy**: one click finds faces, emails, phone numbers, card numbers, IBANs and Macedonian ЕМБГ numbers, and hides them. It can also strip location and camera details from the file.
+- **Protect Privacy**: one click finds faces, names, emails, phone numbers, addresses, dates, ID and card numbers, bank and medical record numbers, IP addresses, links, passwords and API keys, and hides them. It can also strip location and camera details from the file.
 - **Hide anything by hand, show it again**: select an area or some text, right-click and choose Blur, Pixelate or Black Out. Right-click a hidden area and choose Show Again to bring back just that one.
 - **Crop in one click**: a crop frame appears straight away; drag it, pick a shape (Square, 4:3, 16:9…), press Return.
 - **Right-click on text**: Look Up, Translate, Search With Google, Copy or Share; **Copy Subject** lifts the main object out of a photo.
