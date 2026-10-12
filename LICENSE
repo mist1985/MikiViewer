@@ -1,0 +1,43 @@
+MikiViewer — Proprietary License
+
+Copyright © 2026 Mihajlo Stojanovski. All rights reserved.
+
+MikiViewer, including its source code, compiled application, icons, graphics,
+documentation and website (together, "the Software"), is the property of
+Mihajlo Stojanovski and is protected by copyright law and international treaties.
+The Software is not open source.
+
+1. Source code. The source code may be publicly visible, but no license is granted
+   to it. You may not copy, modify, adapt, translate, merge, publish, distribute,
+   sublicense, sell, or create derivative works from any part of the source code,
+   in whole or in part, without prior written permission from the copyright holder.
+
+2. Use of the application. You may download the official compiled MikiViewer
+   application from its official release page (https://github.com/mist1985/MikiViewer-releases/releases)
+   and install and use it on Macs you own or control, free of charge. This permission is
+   personal, non-exclusive, non-transferable and revocable.
+
+3. Restrictions. You may not:
+   a. redistribute, rent, lease, lend, sell or sublicense the application;
+   b. reverse engineer, decompile or disassemble it, except to the extent applicable
+      law expressly permits despite this restriction;
+   c. remove or alter any copyright, trademark or proprietary notices;
+   d. use the name "MikiViewer" or its icon to identify any other product.
+
+4. Third-party components. The Software includes open-source components that are
+   licensed under their own terms, reproduced in ThirdPartyNotices.txt. Nothing in this
+   license limits your rights under those licenses for those components.
+
+5. No warranty. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+   OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR
+   A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+
+6. Limitation of liability. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY
+   CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+   ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR ITS USE.
+
+7. Termination. These permissions end automatically if you break any of these terms;
+   you must then stop using and delete all copies of the Software.
+
+All rights not expressly granted are reserved. For permission requests, contact the
+copyright holder through https://github.com/mist1985.
