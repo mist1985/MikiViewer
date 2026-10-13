@@ -136,6 +136,27 @@
                opacity: 0; transform: translateY(8px); transition: all .5s var(--ease) .5s; }
   .lift.up .tag { opacity: 1; transform: none; }
 
+  /* Screenshot tutorial */
+  .howto { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(32px, 5vw, 72px); margin-top: 48px; align-items: start; }
+  .keys { position: sticky; top: 100px; border-radius: 24px; padding: clamp(24px, 3vw, 36px); background: var(--stage); color: #f3efe4; }
+  .keys .combo { display: flex; align-items: center; gap: 10px; margin: 6px 0 18px; }
+  .keys .cap { display: grid; place-items: center; min-width: 76px; height: 76px; padding: 0 14px; border-radius: 16px; font: 600 28px/1 Geist, sans-serif;
+               background: linear-gradient(#2b2924, #1d1b17); box-shadow: inset 0 -4px 0 rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.08); }
+  .keys .plus { color: #8f897c; font-size: 22px; }
+  .keys p { margin: 0; color: #b9b3a6; font-size: 16px; }
+  .keys.press .cap { animation: press .5s var(--ease); }
+  .keys.press .cap + .plus + .cap { animation-delay: .08s; }
+  @keyframes press { 40% { transform: translateY(3px); box-shadow: inset 0 -1px 0 rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.08); } }
+  .flash { position: fixed; inset: 0; z-index: 70; background: #fff; pointer-events: none; opacity: 0; }
+  ol.tut { list-style: none; counter-reset: s; margin: 0; padding: 0; display: grid; gap: 14px; }
+  ol.tut li { counter-increment: s; position: relative; padding: 22px 22px 22px 74px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); }
+  ol.tut li::before { content: counter(s); position: absolute; left: 22px; top: 20px; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+                      font: 600 15px/1 Geist, sans-serif; background: var(--green-soft); color: var(--green); }
+  ol.tut h3 { margin: 0 0 6px; font-size: 18px; letter-spacing: -.02em; }
+  ol.tut p { margin: 0; color: var(--muted); font-size: 15.5px; }
+  ol.tut .path { display: inline; font: 500 13.5px/1.9 "Geist Mono", monospace; color: var(--ink); background: var(--bg-2); padding: 2px 7px; border-radius: 6px; }
+  ol.tut .opt { font: 500 11px/1 "Geist Mono", monospace; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 4px 8px; margin-left: 8px; vertical-align: 3px; }
+
   /* Your Mac */
   .local { border-radius: clamp(22px, 3vw, 36px); padding: clamp(36px, 6vw, 80px); background: var(--green-soft); }
   .local .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 44px; }
@@ -174,6 +195,7 @@
   @media (max-width: 860px) {
     .links { display: none; } nav .btn { margin-left: auto; }
     .hero-row { grid-template-columns: 1fr; } .spot { display: none; }
+    .howto { grid-template-columns: 1fr; } .keys { position: static; }
     .split, .extras, .install, .local .cols, .grid { grid-template-columns: 1fr; }
     .vbar .vinfo { display: none; }
   }
@@ -188,7 +210,7 @@
 <nav id="nav">
   <div class="wrap">
     <a class="brand" href="#top"><span class="blogo" id="blogo"><img src="media/logo.webp" alt=""><span class="eye"><span class="pupil"></span><span class="lid"></span></span></span>MikiViewer</a>
-    <div class="links" id="links"><span class="pill"></span><a href="#viewer">Viewer</a><a href="#text">Text</a><a href="#edit">Edit</a><a href="#extras">Extras</a><a href="#mac">Your Mac</a></div>
+    <div class="links" id="links"><span class="pill"></span><a href="#viewer">Viewer</a><a href="#text">Text</a><a href="#edit">Edit</a><a href="#extras">Extras</a><a href="#screenshots">Screenshots</a><a href="#mac">Your Mac</a></div>
     <a class="btn go" href="#download">Download</a>
   </div>
 </nav>
@@ -202,7 +224,7 @@
         <span class="line"><span class="w" style="--i:2">opened</span> <span class="w mark" style="--i:3">beautifully.</span></span>
       </h1>
       <div class="hero-row"><div>
-      <p class="lede">MikiViewer is a fast, native image viewer for Mac. <b>Flip through whole folders, zoom without a stutter, crop and mark up in a click</b>, and even <b>select the text inside a photo</b>. Free, with no account.</p>
+      <p class="lede">MikiViewer is a fast, native image viewer for Mac. <b>Flip through whole folders, zoom without a stutter, crop and mark up in a click</b>, even <b>select the text inside a photo</b>, and take a screenshot from anywhere with <b>⌃P</b>. Free, with no account.</p>
       <div class="cta">
         <!-- These links always point at the newest release, even without JavaScript. -->
         <a class="btn go pkg" href="https://github.com/mist1985/MikiViewer/releases/latest/download/MikiViewer.pkg">Download for Mac <small>free</small></a>
@@ -289,6 +311,30 @@
         <p>Right-click and choose Copy Subject. A person, pet or object comes away from its background, ready to paste.</p>
         <div class="lift" id="lift" title="Click to lift again"><img class="bg" src="media/g-bird.webp" alt="" loading="lazy"><img class="fg" src="media/bird-cut.webp" alt="A budgerigar lifted out of its photo" loading="lazy"><span class="tag">Subject copied</span></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="screenshots">
+  <div class="wrap">
+    <div class="intro" data-reveal>
+      <span class="eyebrow" style="--c:var(--beak)">Screenshots</span>
+      <h2>Make MikiViewer your screenshot tool.</h2>
+      <p>Press one shortcut anywhere on your Mac and the whole screen opens in MikiViewer, ready to crop, mark up, hide details or save. Set it up once in about a minute.</p>
+    </div>
+    <div class="howto">
+      <div class="keys" id="keys" data-reveal>
+        <span class="eyebrow" style="color:#8f897c">The shortcut</span>
+        <div class="combo" aria-label="Control P"><span class="cap">⌃</span><span class="plus">+</span><span class="cap">P</span></div>
+        <p>Works in any app, as long as MikiViewer is running. Try pressing it on this page.</p>
+      </div>
+      <ol class="tut">
+        <li data-reveal><h3>Install MikiViewer and open it</h3><p>Download the installer below and open MikiViewer once. You can close its windows with ⌘W; it keeps running quietly so the shortcut stays ready.</p></li>
+        <li data-reveal><h3>Press ⌃P and allow screen recording</h3><p>The first time, MikiViewer asks for permission. Click <b>Open System Settings</b> and turn on MikiViewer in <span class="path">Privacy &amp; Security ▸ Screen &amp; System Audio Recording</span>. Quit MikiViewer with ⌘Q and open it again so macOS applies it.</p></li>
+        <li data-reveal><h3>Start it when your Mac starts</h3><p>Open <span class="path">System Settings ▸ General ▸ Login Items &amp; Extensions</span>, click <b>+</b> under Open at Login and choose MikiViewer. From then on, ⌃P works right after you log in.</p></li>
+        <li data-reveal><h3>Turn off the built-in shortcuts <span class="opt">optional</span></h3><p>If you’d rather not have two screenshot tools, open <span class="path">System Settings ▸ Keyboard ▸ Keyboard Shortcuts… ▸ Screenshots</span> and untick the ones you don’t want, like ⌘⇧3 and ⌘⇧4.</p></li>
+        <li data-reveal><h3>After an update</h3><p>If ⌃P ever stops working after updating MikiViewer, it will tell you. Turn MikiViewer off and on again in Screen &amp; System Audio Recording, then reopen the app.</p></li>
+      </ol>
     </div>
   </div>
 </section>
@@ -431,6 +477,16 @@ document.addEventListener("selectionchange", () => {
   if (t && $("#sign").contains(s.anchorNode)) {
     $("#copied").innerHTML = `“${t.replace(/[<>&]/g, "")}” <span>selected. In MikiViewer, ⌘C copies it.</span>`;
   }
+});
+
+/* ---------- ⌃P on this page: a preview of the real thing ---------- */
+addEventListener("keydown", e => {
+  if (!(e.ctrlKey && !e.metaKey && e.key.toLowerCase() === "p")) return;
+  e.preventDefault();
+  const keys = $("#keys"); keys.classList.remove("press"); void keys.offsetWidth; keys.classList.add("press");
+  if (reduce) return;
+  const f = document.createElement("div"); f.className = "flash"; document.body.append(f);
+  f.animate([{ opacity: 0 }, { opacity: .85, offset: .15 }, { opacity: 0 }], { duration: 450, easing: "ease-out" }).onfinish = () => f.remove();
 });
 
 /* ---------- Extras ---------- */
