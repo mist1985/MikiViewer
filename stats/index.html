@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MikiViewer downloads</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #fbf7ee; --card: #fffdf8; --ink: #1b1a17; --muted: #6e685d; --line: rgba(27,26,23,.1); --green: #2a9a4b; --teal: #13a3a6; --soft: #e3f1dc; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #14130f; --card: #1f1d18; --ink: #f3efe4; --muted: #a39d90; --line: rgba(243,239,228,.1); --green: #3cb55e; --soft: #1f2e1f; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 Geist, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+  main { max-width: 860px; margin: 0 auto; padding: 40px 16px 64px; }
+  a { color: inherit; }
+  header { display: flex; align-items: center; gap: 10px; font-weight: 650; }
+  header img { width: 30px; height: 30px; }
+  header a { text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  header .back { margin-left: auto; font-weight: 500; font-size: 14px; color: var(--muted); }
+  .eyebrow { margin-top: 56px; font: 500 13px/1 "Geist Mono", monospace; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+  .total { font-size: clamp(72px, 16vw, 148px); line-height: 1; letter-spacing: -.05em; font-weight: 650; margin: 14px 0 6px; font-variant-numeric: tabular-nums; }
+  .sub { color: var(--muted); margin: 0; }
+  .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 36px; }
+  .tile { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; }
+  .tile b { display: block; font-size: 34px; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+  .tile span { color: var(--muted); font-size: 14px; }
+  h2 { font-size: 22px; letter-spacing: -.02em; margin: 52px 0 14px; }
+  .rows { display: grid; gap: 8px; }
+  .row { display: grid; grid-template-columns: 5.5em 1fr 4.5em; gap: 14px; align-items: center; font-size: 15px; }
+  .row .v { font: 500 14px "Geist Mono", monospace; }
+  .row .n { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .bar { height: 26px; border-radius: 8px; background: var(--line); overflow: hidden; display: flex; }
+  .bar i { display: block; height: 100%; transform-origin: left; animation: grow .9s cubic-bezier(.2,.7,.1,1) both; }
+  .bar .p { background: var(--green); } .bar .d { background: var(--teal); }
+  @keyframes grow { from { transform: scaleX(0); } }
+  .legend { display: flex; gap: 18px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .note { margin-top: 44px; padding: 16px 18px; border-radius: 14px; background: var(--soft); color: var(--muted); font-size: 14px; }
+  .live { display: inline-flex; align-items: center; gap: 7px; } .live::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px color-mix(in srgb, var(--green) 25%, transparent); }
+  @media (max-width: 560px) { .tiles { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <header><a href="../"><img src="../media/logo.webp" alt="">MikiViewer</a><a class="back" href="../">← Back to the site</a></header>
+  <div class="eyebrow"><span class="live">Downloads, all versions</span></div>
+  <div class="total" id="total">–</div>
+  <p class="sub" id="since">Counting…</p>
+  <div class="tiles">
+    <div class="tile"><b id="latest">–</b><span id="latestLabel">Latest version</span></div>
+    <div class="tile"><b id="pkg">–</b><span>Installer (.pkg)</span></div>
+    <div class="tile"><b id="dmg">–</b><span>Disk image (.dmg)</span></div>
+  </div>
+  <h2>By version</h2>
+  <div class="rows" id="rows"></div>
+  <div class="legend"><span><i style="background:var(--green)"></i>.pkg</span><span><i style="background:var(--teal)"></i>.dmg</span></div>
+  <p class="note">Counted by GitHub each time someone downloads the installer or disk image. The latest version updates live; older versions keep the count they had when they were replaced. Counting started with 1.6.4. A download isn’t always a new person: some people download more than once.</p>
+</main>
+<script>
+const fmt = n => n.toLocaleString();
+const count = (a, ext) => a.filter(x => x.name.endsWith(ext)).reduce((s, x) => s + x.download_count, 0);
+Promise.all([
+  fetch("history.json").then(r => r.ok ? r.json() : []).catch(() => []),
+  fetch("https://api.github.com/repos/mist1985/MikiViewer/releases").then(r => r.ok ? r.json() : []).catch(() => [])
+]).then(([history, live]) => {
+  const byTag = new Map(history.map(r => [r.tag, r]));
+  for (const r of live) {
+    const old = byTag.get(r.tag_name) || {};
+    byTag.set(r.tag_name, { tag: r.tag_name, date: r.published_at,
+      pkg: Math.max(count(r.assets, ".pkg"), old.pkg || 0), dmg: Math.max(count(r.assets, ".dmg"), old.dmg || 0) });
+  }
+  const all = [...byTag.values()].sort((a, b) => b.date.localeCompare(a.date));
+  if (!all.length) { document.getElementById("since").textContent = "No data yet."; return; }
+  const pkg = all.reduce((s, r) => s + r.pkg, 0), dmg = all.reduce((s, r) => s + r.dmg, 0), total = pkg + dmg;
+  // Count up to the total.
+  const el = document.getElementById("total"), t0 = performance.now();
+  (function tick(t) { const k = Math.min(1, (t - t0) / 900); el.textContent = fmt(Math.round(total * (1 - Math.pow(1 - k, 3)))); if (k < 1) requestAnimationFrame(tick); })(t0);
+  const first = all[all.length - 1];
+  document.getElementById("since").textContent = `Since ${first.tag.replace(/^v/, "")}, released ${new Date(first.date).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}`;
+  const latest = all[0];
+  document.getElementById("latest").textContent = fmt(latest.pkg + latest.dmg);
+  document.getElementById("latestLabel").textContent = `Version ${latest.tag.replace(/^v/, "")}`;
+  document.getElementById("pkg").textContent = fmt(pkg);
+  document.getElementById("dmg").textContent = fmt(dmg);
+  const max = Math.max(1, ...all.map(r => r.pkg + r.dmg));
+  document.getElementById("rows").innerHTML = all.map((r, i) => `
+    <div class="row"><span class="v">${r.tag.replace(/^v/, "")}</span>
+      <span class="bar"><i class="p" style="width:${r.pkg / max * 100}%;animation-delay:${i * 60}ms"></i><i class="d" style="width:${r.dmg / max * 100}%;animation-delay:${i * 60 + 120}ms"></i></span>
+      <span class="n">${fmt(r.pkg + r.dmg)}</span></div>`).join("");
+});
+</script>
+</body>
+</html>
