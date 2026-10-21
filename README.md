@@ -21,6 +21,7 @@ This repository hosts MikiViewer's download page and releases. MikiViewer is pro
 - **Protect Privacy**: one click finds faces, names, emails, phone numbers, addresses, dates, ID and card numbers, bank and medical record numbers, IP addresses, links, passwords and API keys, and hides them. It can also strip location and camera details from the file.
 - **Hide anything by hand, show it again**: select an area or some text, right-click and choose Blur, Pixelate or Black Out. Right-click a hidden area and choose Show Again to bring back just that one.
 - **Crop in one click**: a crop frame appears straight away; drag it, pick a shape (Square, 4:3, 16:9…), add markup inside it, then press Return, or ⌘C to copy just that area.
+- **Convert to Scan**: a phone photo of a document comes out like a flatbed scan: the page is cut out, straightened and squared, shadows and glare are gone, and the paper is white.
 - **Right-click on text**: Look Up, Translate, Search With Google, Copy or Share; **Copy Subject** lifts the main object out of a photo.
 
 ## Install

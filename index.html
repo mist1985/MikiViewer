@@ -98,6 +98,8 @@
 
   .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
   .feat { padding: 22px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); transition: transform .4s var(--spring), box-shadow .3s; }
+  .feat.wide { grid-column: 1 / -1; }
+  .feat .new { font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 3px 8px; border-radius: 99px; background: var(--beak); color: #fff; align-self: center; }
   .feat:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -24px rgba(30,25,10,.35); }
   .feat h3 { margin: 0 0 6px; font-size: 18px; letter-spacing: -.02em; display: flex; justify-content: space-between; gap: 10px; }
   .feat p { margin: 0; color: var(--muted); font-size: 15.5px; }
@@ -288,6 +290,7 @@
       <div class="feat" data-reveal><h3>Extract Text <kbd>⇧⌘T</kbd></h3><p>All the text in a picture, or in an area you select, ready to edit and copy.</p></div>
       <div class="feat" data-reveal style="--d:80ms"><h3>Share & export <kbd>⇧⌘E</kbd></h3><p>Share, print, export to another format or straight to PDF.</p></div>
       <div class="feat" data-reveal style="--d:160ms"><h3>Undo everything <kbd>⌘Z</kbd></h3><p>Every change can be undone, so trying things out is free.</p></div>
+      <div class="feat wide" data-reveal><h3>Convert to Scan <span class="new">New</span></h3><p>Take a photo of an invoice, a diploma or a notebook page with your phone. MikiViewer finds the page, straightens it, squares it to its true shape and removes shadows and glare, so it looks scanned on a flatbed scanner.</p></div>
     </div>
   </div>
 </section>
