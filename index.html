@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MikiViewer — a fast, friendly image viewer for Mac</title>
-<meta name="description" content="MikiViewer is a fast, native image viewer for Mac. Browse folders, zoom, crop, mark up and select the text inside any picture. Free, and your images stay on your Mac.">
+<meta name="description" content="MikiViewer is a fast, native image viewer for Mac. Browse folders, zoom, crop, mark up and select the text inside any picture, take screenshots with ⌃P and record the screen as a movie or GIF with ⌃R. Free, and your images stay on your Mac.">
 <meta name="theme-color" content="#fbf7ee" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#14130f" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="MikiViewer for Mac">
-<meta property="og:description" content="A fast, friendly image viewer for Mac. Free.">
+<meta property="og:description" content="A fast, friendly image viewer for Mac, with screenshots, screen recording and GIFs. Free.">
 <meta property="og:image" content="https://mist1985.github.io/MikiViewer/media/og.jpg">
 <link rel="icon" href="icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -146,8 +146,8 @@
                background: linear-gradient(#2b2924, #1d1b17); box-shadow: inset 0 -4px 0 rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.08); }
   .keys .plus { color: #8f897c; font-size: 22px; }
   .keys p { margin: 0; color: #b9b3a6; font-size: 16px; }
-  .keys.press .cap { animation: press .5s var(--ease); }
-  .keys.press .cap + .plus + .cap { animation-delay: .08s; }
+  .keys .combo.press .cap { animation: press .5s var(--ease); }
+  .keys .combo.press .cap + .plus + .cap { animation-delay: .08s; }
   @keyframes press { 40% { transform: translateY(3px); box-shadow: inset 0 -1px 0 rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.08); } }
   .flash { position: fixed; inset: 0; z-index: 70; background: #fff; pointer-events: none; opacity: 0; }
   ol.tut { list-style: none; counter-reset: s; margin: 0; padding: 0; display: grid; gap: 14px; }
@@ -212,7 +212,7 @@
 <nav id="nav">
   <div class="wrap">
     <a class="brand" href="#top"><span class="blogo" id="blogo"><img src="media/logo.webp" alt=""><span class="eye"><span class="pupil"></span><span class="lid"></span></span></span>MikiViewer</a>
-    <div class="links" id="links"><span class="pill"></span><a href="#viewer">Viewer</a><a href="#text">Text</a><a href="#edit">Edit</a><a href="#extras">Extras</a><a href="#screenshots">Screenshots</a><a href="#mac">Your Mac</a></div>
+    <div class="links" id="links"><span class="pill"></span><a href="#viewer">Viewer</a><a href="#text">Text</a><a href="#edit">Edit</a><a href="#extras">Extras</a><a href="#screenshots">Capture</a><a href="#mac">Your Mac</a></div>
     <a class="btn go" href="#download">Download</a>
   </div>
 </nav>
@@ -226,7 +226,7 @@
         <span class="line"><span class="w" style="--i:2">opened</span> <span class="w mark" style="--i:3">beautifully.</span></span>
       </h1>
       <div class="hero-row"><div>
-      <p class="lede">MikiViewer is a fast, native image viewer for Mac. <b>Flip through whole folders, zoom without a stutter, crop and mark up in a click</b>, even <b>select the text inside a photo</b>, and take a screenshot from anywhere with <b>⌃P</b>. Free, with no account.</p>
+      <p class="lede">MikiViewer is a fast, native image viewer for Mac. <b>Flip through whole folders, zoom without a stutter, crop and mark up in a click</b>, even <b>select the text inside a photo</b>, take a screenshot from anywhere with <b>⌃P</b>, or <b>record the screen with ⌃R</b> and turn it into a GIF. Free, with no account.</p>
       <div class="cta">
         <!-- These links always point at the newest release, even without JavaScript. -->
         <a class="btn go pkg" href="https://github.com/mist1985/MikiViewer/releases/latest/download/MikiViewer.pkg">Download for Mac <small>free</small></a>
@@ -290,7 +290,8 @@
       <div class="feat" data-reveal><h3>Extract Text <kbd>⇧⌘T</kbd></h3><p>All the text in a picture, or in an area you select, ready to edit and copy.</p></div>
       <div class="feat" data-reveal style="--d:80ms"><h3>Share & export <kbd>⇧⌘E</kbd></h3><p>Share, print, export to another format or straight to PDF.</p></div>
       <div class="feat" data-reveal style="--d:160ms"><h3>Undo everything <kbd>⌘Z</kbd></h3><p>Every change can be undone, so trying things out is free.</p></div>
-      <div class="feat wide" data-reveal><h3>Convert to Scan <span class="new">New</span></h3><p>Take a photo of an invoice, a diploma or a notebook page with your phone. MikiViewer finds the page, straightens it, squares it to its true shape and removes shadows and glare, so it looks scanned on a flatbed scanner.</p></div>
+      <div class="feat wide" data-reveal><h3>Convert to Scan</h3><p>Take a photo of an invoice, a diploma or a notebook page with your phone. MikiViewer finds the page, straightens it, squares it to its true shape and removes shadows and glare, so it looks scanned on a flatbed scanner.</p></div>
+      <div class="feat wide" data-reveal><h3>Screen recording &amp; GIFs <kbd>⌃R</kbd> <span class="new">New</span></h3><p>Press Control+R in any app to record the whole screen or just a part of it, with or without your microphone, and again to stop. Trim the recording, then save it as a movie, with or without its sound, or export it as a GIF that loops forever.</p></div>
     </div>
   </div>
 </section>
@@ -321,21 +322,26 @@
 <section id="screenshots">
   <div class="wrap">
     <div class="intro" data-reveal>
-      <span class="eyebrow" style="--c:var(--beak)">Screenshots</span>
-      <h2>Make MikiViewer your screenshot tool.</h2>
-      <p>Press one shortcut anywhere on your Mac and the whole screen opens in MikiViewer, ready to crop, mark up, hide details or save. Set it up once in about a minute.</p>
+      <span class="eyebrow" style="--c:var(--beak)">Screenshots &amp; recordings</span>
+      <h2>Make MikiViewer your screenshot and screen recording tool.</h2>
+      <p>Press ⌃P anywhere on your Mac and the whole screen opens in MikiViewer, ready to crop, mark up, hide details or save. Press ⌃R to record the whole screen or just a part of it, then trim it, take out the sound, and save it as a movie or a GIF. Set it up once in about a minute.</p>
     </div>
     <div class="howto">
       <div class="keys" id="keys" data-reveal>
-        <span class="eyebrow" style="color:#8f897c">The shortcut</span>
-        <div class="combo" aria-label="Control P"><span class="cap">⌃</span><span class="plus">+</span><span class="cap">P</span></div>
-        <p>Works in any app, as long as MikiViewer is running. Try pressing it on this page.</p>
+        <span class="eyebrow" style="color:#8f897c">Screenshot</span>
+        <div class="combo" id="comboP" aria-label="Control P"><span class="cap">⌃</span><span class="plus">+</span><span class="cap">P</span></div>
+        <span class="eyebrow" style="color:#8f897c">Screen recording</span>
+        <div class="combo" id="comboR" aria-label="Control R"><span class="cap">⌃</span><span class="plus">+</span><span class="cap">R</span></div>
+        <p>Both work in any app, as long as MikiViewer is running. Try pressing them on this page.</p>
       </div>
       <ol class="tut">
         <li data-reveal><h3>Install MikiViewer and open it</h3><p>Download the installer below and open MikiViewer once. You can close its windows with ⌘W; it keeps running quietly so the shortcut stays ready. Quitting with ⌘Q turns the shortcut off.</p></li>
         <li data-reveal><h3>Press ⌃P and allow screen recording</h3><p>The first time, MikiViewer asks for permission. Click <b>Open System Settings</b> and turn on MikiViewer in <span class="path">Privacy &amp; Security ▸ Screen &amp; System Audio Recording</span>. Quit MikiViewer with ⌘Q and open it again so macOS applies it.</p></li>
-        <li data-reveal><h3>Start it when your Mac starts</h3><p>Open <span class="path">System Settings ▸ General ▸ Login Items &amp; Extensions</span>, click <b>+</b> under Open at Login and choose MikiViewer. From then on, ⌃P works right after you log in.</p></li>
-        <li data-reveal><h3>Turn off the built-in shortcuts <span class="opt">optional</span></h3><p>If you’d rather not have two screenshot tools, open <span class="path">System Settings ▸ Keyboard ▸ Keyboard Shortcuts… ▸ Screenshots</span> and untick the ones you don’t want, like ⌘⇧3 and ⌘⇧4.</p></li>
+        <li data-reveal><h3>Record the screen with ⌃R</h3><p>The recording toolbar appears. Choose <b>Record Entire Screen</b> or <b>Record Selected Portion</b>, and under <b>Options</b> pick a microphone (or None), a timer, or showing your clicks. Click <b>Record</b>. To finish, press ⌃R again or click the stop button in the menu bar.</p></li>
+        <li data-reveal><h3>Trim it, take out the sound, save it</h3><p>The recording opens in MikiViewer. Click <b>Trim…</b> to cut off the start and end. Tick <b>Remove Sound</b> if you talked or clicked by accident. Then <b>Save Movie…</b>, or <b>Export as GIF…</b> and choose its size and smoothness. GIFs loop forever and never have sound.</p></li>
+        <li data-reveal><h3>Start it when your Mac starts</h3><p>Open <span class="path">System Settings ▸ General ▸ Login Items &amp; Extensions</span>, click <b>+</b> under Open at Login and choose MikiViewer. From then on, ⌃P and ⌃R work right after you log in.</p></li>
+        <li data-reveal><h3>Free up ⌃P and ⌃R <span class="opt">if they do nothing</span></h3><p>Only one app can have a shortcut. If you gave ⌃P or ⌃R to something else, like the built-in screenshot toolbar, open <span class="path">System Settings ▸ Keyboard ▸ Keyboard Shortcuts… ▸ Screenshots</span>, set that one back (the toolbar’s own is ⇧⌘5), then quit MikiViewer with ⌘Q and open it again.</p></li>
+        <li data-reveal><h3>Turn off the built-in shortcuts <span class="opt">optional</span></h3><p>If you’d rather not have two screenshot tools, untick the ones you don’t want in the same place, like ⌘⇧3 and ⌘⇧4.</p></li>
         <li data-reveal><h3>Updating from 1.6.5 or older? Allow it once more</h3><p>Since 1.6.6, MikiViewer keeps its screen recording permission when you update. Coming from an older version, macOS sees it as a new app one last time: in <span class="path">Screen &amp; System Audio Recording</span>, select MikiViewer, remove it with <b>−</b>, then open MikiViewer and press ⌃P to allow it again. Quit with ⌘Q and reopen MikiViewer.</p></li>
       </ol>
     </div>
@@ -482,12 +488,14 @@ document.addEventListener("selectionchange", () => {
   }
 });
 
-/* ---------- ⌃P on this page: a preview of the real thing ---------- */
+/* ---------- ⌃P and ⌃R on this page: a preview of the real thing ---------- */
 addEventListener("keydown", e => {
-  if (!(e.ctrlKey && !e.metaKey && e.key.toLowerCase() === "p")) return;
+  const key = e.key.toLowerCase();
+  if (!(e.ctrlKey && !e.metaKey && (key === "p" || key === "r"))) return;
   e.preventDefault();
-  const keys = $("#keys"); keys.classList.remove("press"); void keys.offsetWidth; keys.classList.add("press");
-  if (reduce) return;
+  const combo = $(key === "p" ? "#comboP" : "#comboR");
+  combo.classList.remove("press"); void combo.offsetWidth; combo.classList.add("press");
+  if (reduce || key === "r") return;
   const f = document.createElement("div"); f.className = "flash"; document.body.append(f);
   f.animate([{ opacity: 0 }, { opacity: .85, offset: .15 }, { opacity: 0 }], { duration: 450, easing: "ease-out" }).onfinish = () => f.remove();
 });

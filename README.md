@@ -2,7 +2,7 @@
 
 <h1 align="center">MikiViewer</h1>
 
-<p align="center">A fast image viewer and editor for macOS that can also read the text in your images, in English, Macedonian and about 120 other languages.</p>
+<p align="center">A fast image viewer and editor for macOS that can also read the text in your images, in English, Macedonian and about 120 other languages, take screenshots, and record the screen as a movie or a GIF.</p>
 
 <p align="center"><a href="https://mist1985.github.io/MikiViewer/"><b>Download the latest version</b></a></p>
 
@@ -12,7 +12,8 @@ This repository hosts MikiViewer's download page and releases. MikiViewer is pro
 
 - **View**: open images or whole folders, browse with thumbnails, zoom, full screen and slideshow.
 - **Browse the folder**: open one picture, then press ← → (or ↑ ↓) to flip through every other picture in its folder, in Finder's order.
-- **Screenshots with ⌃P**: from any app, Control+P captures the whole screen with the shutter sound and opens it in MikiViewer to mark up, hide details or save. See the [screenshot guide](https://mist1985.github.io/MikiViewer/#screenshots).
+- **Screenshots with ⌃P**: from any app, Control+P captures the whole screen with the shutter sound and opens it in MikiViewer to mark up, hide details or save. See the [screenshot and recording guide](https://mist1985.github.io/MikiViewer/#screenshots).
+- **Screen recordings with ⌃R**: Control+R records the whole screen or a part you select, with or without the microphone; press it again to stop. Trim the recording, save it as a movie with or without its sound, or export it as a looping GIF.
 - **Mark up**: shapes, arrows, text, sketching, signatures and a loupe, all editable until you save.
 - **Edit**: crop, rotate, flip, resize, color adjustments, auto levels, and one-click background removal.
 - **Select text on the image**: text is recognized as soon as an image opens. Drag across it to select exactly what you want, double-click for a word, triple-click for a line, then press ⌘C.
@@ -33,7 +34,7 @@ Prefer drag-and-drop? Download **MikiViewer.dmg** and drag MikiViewer onto Appli
 
 **First launch:** MikiViewer isn't notarized by Apple, so macOS blocks the first launch. Right-click the installer (or the app) and choose **Open**, or allow it under System Settings ▸ Privacy & Security.
 
-**Screenshots (⌃P):** the first time, macOS asks you to allow MikiViewer under System Settings ▸ Privacy & Security ▸ Screen & System Audio Recording; then quit and reopen MikiViewer. From 1.6.6 on, updates keep this permission. Coming from 1.6.5 or older, remove MikiViewer from that list with − and allow it once more.
+**Screenshots and recordings (⌃P, ⌃R):** the first time, macOS asks you to allow MikiViewer under System Settings ▸ Privacy & Security ▸ Screen & System Audio Recording; then quit and reopen MikiViewer. From 1.6.6 on, updates keep this permission. Coming from 1.6.5 or older, remove MikiViewer from that list with − and allow it once more.
 
 **Requires** macOS 26 or later on an Apple silicon Mac.
 
